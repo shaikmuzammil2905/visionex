@@ -33,7 +33,7 @@ export const HeroSection: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [activeNode, setActiveNode] = useState<NodeDetail | null>(null);
 
-  // Orbital Nodes Data for Popups & Positioning
+  // Orbital Nodes Data for Popups
   const nodesData: Record<string, NodeDetail> = {
     learn: {
       id: 'learn',
@@ -141,30 +141,28 @@ export const HeroSection: React.FC = () => {
 
     window.addEventListener('resize', handleResize);
 
-    // Particle nodes for ambient background network
-    const particles = Array.from({ length: 35 }, () => ({
+    const particles = Array.from({ length: 30 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: (Math.random() - 0.5) * 0.35,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
       radius: Math.random() * 1.5 + 1,
-      color: Math.random() > 0.5 ? 'rgba(139, 92, 246, 0.45)' : 'rgba(59, 130, 246, 0.45)',
+      color: Math.random() > 0.5 ? 'rgba(139, 92, 246, 0.4)' : 'rgba(59, 130, 246, 0.4)',
     }));
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Subtle connective web
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 110) {
+          if (dist < 100) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(139, 92, 246, ${0.15 * (1 - dist / 110)})`;
-            ctx.lineWidth = 0.7;
+            ctx.strokeStyle = `rgba(139, 92, 246, ${0.12 * (1 - dist / 100)})`;
+            ctx.lineWidth = 0.6;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
             ctx.stroke();
@@ -172,7 +170,6 @@ export const HeroSection: React.FC = () => {
         }
       }
 
-      // Draw particles
       particles.forEach((p) => {
         p.x += p.vx;
         p.y += p.vy;
@@ -200,6 +197,7 @@ export const HeroSection: React.FC = () => {
   return (
     <section className="relative w-full min-h-[92vh] lg:min-h-screen flex flex-col justify-between pt-24 sm:pt-28 lg:pt-32 pb-8 overflow-hidden bg-[#07090e]">
       {/* 1. FULL-SCREEN SEAMLESS CINEMATIC VIDEO BACKGROUND */}
+      {/* Target focal point object-[65%_center] so the person at the desk with laptop is clearly visible on both mobile & desktop */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <video
           src="/hero-video.mp4"
@@ -208,17 +206,20 @@ export const HeroSection: React.FC = () => {
           muted
           playsInline
           poster="/hero-desk.jpg"
-          className="absolute inset-0 w-full h-full object-cover object-right lg:object-center brightness-105 contrast-105 scale-100 transition-all duration-700"
+          className="absolute inset-0 w-full h-full object-cover object-[62%_center] lg:object-center brightness-105 contrast-105 transition-all duration-700"
         />
 
-        {/* Localized Left Gradient: Keeps text 100% crisp without darkening the video skyline and workspace on the right */}
-        <div className="absolute inset-y-0 left-0 w-full lg:w-3/5 bg-gradient-to-r from-[#07090e]/95 via-[#07090e]/65 to-transparent z-10" />
+        {/* Localized Left Overlay on Desktop: keeps text readable while keeping video skyline & person on right 100% visible */}
+        <div className="hidden lg:block absolute inset-y-0 left-0 w-3/5 bg-gradient-to-r from-[#07090e]/95 via-[#07090e]/60 to-transparent z-10" />
+
+        {/* Mobile Overlay: subtle gradient to ensure text readability without obscuring the person & laptop */}
+        <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-[#07090e]/80 via-[#07090e]/35 to-[#07090e]/90 z-10" />
 
         {/* Top subtle navbar shadow */}
-        <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#07090e]/80 via-[#07090e]/30 to-transparent z-10" />
+        <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-[#07090e]/80 via-[#07090e]/30 to-transparent z-10" />
 
         {/* Bottom smooth fade to next section */}
-        <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[#07090e] via-[#07090e]/70 to-transparent z-10" />
+        <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#07090e] via-[#07090e]/60 to-transparent z-10" />
 
         {/* Canvas for ambient particle network */}
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-10" />
@@ -228,7 +229,7 @@ export const HeroSection: React.FC = () => {
       <div className="container-custom relative z-20 my-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Column: Core Copy & CTAs */}
-          <div className="lg:col-span-6 space-y-5 sm:space-y-6 text-left max-w-2xl">
+          <div className="lg:col-span-6 space-y-5 sm:space-y-6 text-left max-w-2xl reveal-on-scroll">
             {/* Pill Tag */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-950/80 border border-purple-500/50 shadow-[0_0_18px_rgba(139,92,246,0.35)] text-[11px] sm:text-xs font-bold text-purple-300 uppercase tracking-widest font-mono backdrop-blur-md">
               <Sparkles className="w-3.5 h-3.5 text-purple-400 animate-pulse" />
@@ -255,7 +256,7 @@ export const HeroSection: React.FC = () => {
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
               <Link
                 to="/mission"
                 className="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-semibold text-xs sm:text-sm py-3.5 px-7 rounded-xl shadow-xl shadow-purple-600/30 transition-all flex items-center justify-center gap-2 group hover:scale-[1.02] active:scale-95"
@@ -275,7 +276,7 @@ export const HeroSection: React.FC = () => {
           </div>
 
           {/* Right Column: Floating Futuristic Constellation Nodes over Scene */}
-          <div className="lg:col-span-6 relative w-full h-[320px] sm:h-[400px] lg:h-[460px] flex items-center justify-center">
+          <div className="lg:col-span-6 relative w-full h-[280px] sm:h-[360px] lg:h-[460px] flex items-center justify-center reveal-on-scroll">
             {/* SVG Glowing Dashed Orbit Arc */}
             <svg
               className="absolute inset-0 w-full h-full pointer-events-none z-10 opacity-75"
@@ -299,11 +300,11 @@ export const HeroSection: React.FC = () => {
             </svg>
 
             {/* Central Philosophy Quote Badge */}
-            <div className="relative z-20 text-center max-w-[200px] sm:max-w-[230px] px-3.5 py-2.5 rounded-xl bg-black/60 backdrop-blur-md border border-purple-500/30 shadow-xl shadow-purple-950/40 transform hover:scale-105 transition-all">
-              <p className="text-[11px] sm:text-xs font-medium text-slate-200 leading-relaxed italic">
+            <div className="relative z-20 text-center max-w-[190px] sm:max-w-[230px] px-3 py-2 rounded-xl bg-black/60 backdrop-blur-md border border-purple-500/30 shadow-xl shadow-purple-950/40 transform hover:scale-105 transition-all">
+              <p className="text-[10px] sm:text-xs font-medium text-slate-200 leading-relaxed italic">
                 "Be the reason someone else's future changes."
               </p>
-              <span className="inline-block mt-1 text-[9px] font-mono text-purple-400 font-bold uppercase tracking-widest">
+              <span className="inline-block mt-1 text-[8px] sm:text-[9px] font-mono text-purple-400 font-bold uppercase tracking-widest">
                 Click nodes for details
               </span>
             </div>
@@ -311,78 +312,78 @@ export const HeroSection: React.FC = () => {
             {/* 1. Node: LEARN (Top) */}
             <button
               onClick={() => setActiveNode(nodesData.learn)}
-              className="absolute top-2 sm:top-4 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center group cursor-pointer transition-transform hover:scale-110 active:scale-95"
+              className="absolute top-1 sm:top-4 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center group cursor-pointer transition-transform hover:scale-110 active:scale-95"
               title="Click to view details"
             >
-              <span className="mb-1 text-[9px] sm:text-[10px] font-mono font-bold tracking-wider uppercase text-blue-300">
+              <span className="mb-1 text-[8px] sm:text-[10px] font-mono font-bold tracking-wider uppercase text-blue-300">
                 LEARN
               </span>
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-blue-950/80 border border-blue-400/70 shadow-[0_0_18px_rgba(59,130,246,0.6)] flex items-center justify-center text-blue-300 backdrop-blur-md transition-all group-hover:border-white group-hover:bg-blue-900">
-                <BookOpen className="w-5 h-5" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-950/80 border border-blue-400/70 shadow-[0_0_18px_rgba(59,130,246,0.6)] flex items-center justify-center text-blue-300 backdrop-blur-md transition-all group-hover:border-white group-hover:bg-blue-900">
+                <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
             </button>
 
             {/* 2. Node: BUILD (Top Left) */}
             <button
               onClick={() => setActiveNode(nodesData.build)}
-              className="absolute top-16 left-4 sm:left-10 z-20 flex flex-col items-center group cursor-pointer transition-transform hover:scale-110 active:scale-95"
+              className="absolute top-12 sm:top-16 left-3 sm:left-10 z-20 flex flex-col items-center group cursor-pointer transition-transform hover:scale-110 active:scale-95"
               title="Click to view details"
             >
-              <span className="mb-1 text-[9px] sm:text-[10px] font-mono font-bold tracking-wider uppercase text-indigo-300">
+              <span className="mb-1 text-[8px] sm:text-[10px] font-mono font-bold tracking-wider uppercase text-indigo-300">
                 BUILD
               </span>
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-indigo-950/80 border border-indigo-400/70 shadow-[0_0_18px_rgba(99,102,241,0.6)] flex items-center justify-center text-indigo-300 backdrop-blur-md transition-all group-hover:border-white group-hover:bg-indigo-900">
-                <Code2 className="w-5 h-5" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-indigo-950/80 border border-indigo-400/70 shadow-[0_0_18px_rgba(99,102,241,0.6)] flex items-center justify-center text-indigo-300 backdrop-blur-md transition-all group-hover:border-white group-hover:bg-indigo-900">
+                <Code2 className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
             </button>
 
             {/* 3. Node: EARN (Top Right) */}
             <button
               onClick={() => setActiveNode(nodesData.earn)}
-              className="absolute top-16 right-4 sm:right-10 z-20 flex flex-col items-center group cursor-pointer transition-transform hover:scale-110 active:scale-95"
+              className="absolute top-12 sm:top-16 right-3 sm:right-10 z-20 flex flex-col items-center group cursor-pointer transition-transform hover:scale-110 active:scale-95"
               title="Click to view details"
             >
-              <span className="mb-1 text-[9px] sm:text-[10px] font-mono font-bold tracking-wider uppercase text-purple-300">
+              <span className="mb-1 text-[8px] sm:text-[10px] font-mono font-bold tracking-wider uppercase text-purple-300">
                 EARN
               </span>
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-purple-950/80 border border-purple-400/70 shadow-[0_0_18px_rgba(168,85,247,0.6)] flex items-center justify-center text-purple-300 backdrop-blur-md transition-all group-hover:border-white group-hover:bg-purple-900">
-                <TrendingUp className="w-5 h-5" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-purple-950/80 border border-purple-400/70 shadow-[0_0_18px_rgba(168,85,247,0.6)] flex items-center justify-center text-purple-300 backdrop-blur-md transition-all group-hover:border-white group-hover:bg-purple-900">
+                <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
             </button>
 
             {/* 4. Node: EMPOWER (Bottom Left) */}
             <button
               onClick={() => setActiveNode(nodesData.empower)}
-              className="absolute bottom-6 sm:bottom-10 left-2 sm:left-8 z-20 flex flex-col items-center group cursor-pointer transition-transform hover:scale-110 active:scale-95"
+              className="absolute bottom-4 sm:bottom-10 left-2 sm:left-8 z-20 flex flex-col items-center group cursor-pointer transition-transform hover:scale-110 active:scale-95"
               title="Click to view details"
             >
-              <span className="mb-1 text-[9px] sm:text-[10px] font-mono font-bold tracking-wider uppercase text-violet-300">
+              <span className="mb-1 text-[8px] sm:text-[10px] font-mono font-bold tracking-wider uppercase text-violet-300">
                 EMPOWER
               </span>
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-violet-950/80 border border-violet-400/70 shadow-[0_0_18px_rgba(139,92,246,0.6)] flex items-center justify-center text-violet-300 backdrop-blur-md transition-all group-hover:border-white group-hover:bg-violet-900">
-                <Users className="w-5 h-5" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-violet-950/80 border border-violet-400/70 shadow-[0_0_18px_rgba(139,92,246,0.6)] flex items-center justify-center text-violet-300 backdrop-blur-md transition-all group-hover:border-white group-hover:bg-violet-900">
+                <Users className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
             </button>
 
             {/* 5. Node: CREATE OPPORTUNITIES (Bottom Right) */}
             <button
               onClick={() => setActiveNode(nodesData.create)}
-              className="absolute bottom-6 sm:bottom-10 right-2 sm:right-6 z-20 flex flex-col items-center group cursor-pointer transition-transform hover:scale-110 active:scale-95"
+              className="absolute bottom-4 sm:bottom-10 right-1 sm:right-6 z-20 flex flex-col items-center group cursor-pointer transition-transform hover:scale-110 active:scale-95"
               title="Click to view details"
             >
-              <span className="mb-1 text-[8px] sm:text-[9px] font-mono font-bold tracking-wider uppercase text-cyan-300 text-center max-w-[90px]">
+              <span className="mb-1 text-[7px] sm:text-[9px] font-mono font-bold tracking-wider uppercase text-cyan-300 text-center max-w-[85px]">
                 CREATE OPPORTUNITIES
               </span>
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-cyan-950/80 border border-cyan-400/70 shadow-[0_0_18px_rgba(6,182,212,0.6)] flex items-center justify-center text-cyan-300 backdrop-blur-md transition-all group-hover:border-white group-hover:bg-cyan-900">
-                <Rocket className="w-5 h-5" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-cyan-950/80 border border-cyan-400/70 shadow-[0_0_18px_rgba(6,182,212,0.6)] flex items-center justify-center text-cyan-300 backdrop-blur-md transition-all group-hover:border-white group-hover:bg-cyan-900">
+                <Rocket className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
             </button>
           </div>
         </div>
 
         {/* 3. 4 FEATURE HIGHLIGHTS BAR (MATCHES REFERENCE IMAGES) */}
-        <div className="mt-8 sm:mt-12">
-          <div className="glass-panel p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-white/10 shadow-2xl bg-[#0b0f19]/80 backdrop-blur-xl">
+        <div className="mt-8 sm:mt-12 reveal-on-scroll">
+          <div className="glass-panel p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-white/10 shadow-2xl bg-[#0b0f19]/85 backdrop-blur-xl">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 divide-y sm:divide-y-0 sm:divide-x divide-white/5">
               {/* Item 1 */}
               <Link
@@ -462,7 +463,7 @@ export const HeroSection: React.FC = () => {
 
       {/* 4. INTERACTIVE NODE POPUP MODAL */}
       {activeNode && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn">
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn">
           <div className="relative max-w-lg w-full rounded-3xl bg-[#0b0f19] border border-purple-500/40 p-6 sm:p-8 shadow-2xl shadow-purple-950/60 space-y-5 animate-scaleUp">
             {/* Close Button */}
             <button

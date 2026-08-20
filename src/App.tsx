@@ -22,12 +22,31 @@ import { AdminPage } from './pages/AdminPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { initAnalytics } from './lib/analytics';
 
-// Helper to scroll to top on route change
-function ScrollToTop() {
+// Helper to scroll to top on route change & initialize scroll reveal observer
+function ScrollHandler() {
   const { pathname } = useLocation();
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
+    // IntersectionObserver for smooth scrolling animations
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    const elements = document.querySelectorAll('.reveal-on-scroll');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
   }, [pathname]);
+
   return null;
 }
 
@@ -41,7 +60,7 @@ export function App() {
       <AuthProvider>
         <ContentProvider>
           <BlogProvider>
-            <ScrollToTop />
+            <ScrollHandler />
             <div className="flex flex-col min-h-screen bg-[#07090e] text-slate-100 selection:bg-purple-500/30 selection:text-white">
               <Navbar />
               <main className="flex-1">
