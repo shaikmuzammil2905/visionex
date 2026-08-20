@@ -31,9 +31,9 @@ export const ChangingWorldSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-[#07090e] relative overflow-hidden">
+    <section className="py-10 sm:py-14 bg-[#07090e] relative overflow-hidden">
       <div className="container-custom relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 space-y-2.5">
           <div className="inline-block px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs font-mono font-bold text-slate-300 uppercase tracking-widest">
             A CHANGING WORLD
           </div>

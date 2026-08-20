@@ -5,7 +5,7 @@ import { analytics } from '../../lib/analytics';
 
 export const HomeCTASection: React.FC = () => {
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-10 sm:py-14 relative overflow-hidden">
       {/* Background glow orb */}
       <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 via-blue-900/20 to-purple-900/20 pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-purple-600/15 rounded-full blur-[140px] pointer-events-none" />

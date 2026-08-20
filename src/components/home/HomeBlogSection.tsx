@@ -8,9 +8,9 @@ export const HomeBlogSection: React.FC = () => {
   const recentPosts = posts.slice(0, 3);
 
   return (
-    <section className="py-20 bg-[#07090e] relative overflow-hidden">
+    <section className="py-10 sm:py-14 bg-[#07090e] relative overflow-hidden">
       <div className="container-custom relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 sm:mb-8">
           <div>
             <div className="inline-block px-3 py-1 rounded-full bg-purple-950/50 border border-purple-500/30 text-xs font-mono font-bold text-purple-300 uppercase tracking-widest mb-3">
               KNOWLEDGE VAULT

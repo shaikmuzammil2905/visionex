@@ -1,207 +1,234 @@
-import React, { useEffect, useState } from 'react';
-import { Code, Share2, Megaphone, Briefcase, Globe, Users, BookOpen, Wrench, Bot, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Sparkles, Code, Cpu, Smartphone, Palette, Video, Megaphone, ShoppingCart, ArrowRight, CheckCircle2, ChevronRight, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { PageBackButton } from '../components/layout/PageBackButton';
 import { trackPageView } from '../lib/analytics';
 
 export const DigitalEntrepreneurshipPage: React.FC = () => {
-  const [activeTrack, setActiveTrack] = useState<string>('all');
+  const [selectedTrack, setSelectedTrack] = useState<string>('all');
 
   useEffect(() => {
-    document.title = 'Digital Entrepreneurship | THE VISIONEX - Modern Skills & Venture Building';
+    document.title = 'Digital Skills & Entrepreneurship | THE VISIONEX';
     trackPageView('/digital-entrepreneurship', document.title);
   }, []);
 
-  const skillDomains = [
+  const tracks = [
     {
-      id: 'digital-skills',
-      title: 'Digital Skills & Full-Stack Mastery',
+      id: 'fullstack',
       category: 'technical',
+      title: 'Full-Stack Web & MVP Engineering',
       icon: Code,
-      color: 'border-blue-500/30 text-blue-400',
-      badge: 'Core Foundation',
-      desc: 'Mastering modern web development (React, TypeScript, Next.js), API design, responsive UI frameworks, and rapid software prototyping.',
-      modules: ['Modern Frontend & Backend Systems', 'Component Libraries & Clean Architecture', 'Database Design & Cloud Deployment'],
+      color: 'from-blue-500 to-indigo-500',
+      difficulty: 'Beginner to Advanced',
+      timeframe: '8-12 Weeks',
+      description: 'Learn modern React, Node.js, Next.js, and Supabase to build rapid web prototypes, client SaaS applications, and marketplace platforms.',
+      tools: ['React', 'TypeScript', 'Supabase', 'Next.js', 'Vite', 'Tailwind'],
+      ventureIdea: 'Custom web portal or micro-SaaS subscription for local businesses.',
     },
     {
-      id: 'personal-branding',
-      title: 'Personal Branding & Authority',
-      category: 'growth',
-      icon: Share2,
-      color: 'border-purple-500/30 text-purple-400',
-      badge: 'Leverage',
-      desc: 'Building public proof of competence on LinkedIn, Twitter, and GitHub to attract clients, co-founders, and mentorship without cold pitching.',
-      modules: ['Building in Public Methodology', 'Content Distribution Engines', 'Case Study & Portfolio Crafting'],
-    },
-    {
-      id: 'digital-marketing',
-      title: 'Growth Marketing & Client Acquisition',
-      category: 'growth',
-      icon: Megaphone,
-      color: 'border-pink-500/30 text-pink-400',
-      badge: 'Revenue',
-      desc: 'Understanding search mechanics, organic social distribution, conversion copywriting, and structured outreach funnels that convert visitors.',
-      modules: ['SEO & Organic Discoverability', 'Conversion-Focused Landing Pages', 'High-Converting Cold Outreach'],
-    },
-    {
-      id: 'business-models',
-      title: 'Online Business Models & Pricing',
-      category: 'strategy',
-      icon: Briefcase,
-      color: 'border-emerald-500/30 text-emerald-400',
-      badge: 'Venture',
-      desc: 'Designing micro-SaaS, productized freelance services, digital template ecosystems, and consulting retainers with predictable margins.',
-      modules: ['Productized Service Blueprints', 'Value-Based Pricing Strategies', 'Contract Negotiation & Deliverables'],
-    },
-    {
-      id: 'ai-awareness',
-      title: 'AI Awareness & Workflow Automation',
+      id: 'ai-automation',
       category: 'technical',
-      icon: Bot,
-      color: 'border-cyan-500/30 text-cyan-400',
-      badge: 'Force Multiplier',
-      desc: 'Supercharging daily output with LLM integrations, AI coding assistants, automated CRM triggers, and workflow orchestration tools.',
-      modules: ['LLM Workflow Integration', 'Zapier & Make.com Automation', 'Custom AI Agent Prototyping'],
+      title: 'AI Tools, Agents & Workflow Automation',
+      icon: Cpu,
+      color: 'from-purple-500 to-pink-500',
+      difficulty: 'All Levels',
+      timeframe: '4-6 Weeks',
+      description: 'Harness LLMs, n8n, Make, and Python scripting to automate business operations, lead qualification pipelines, and content synthesis.',
+      tools: ['ChatGPT', 'Claude', 'n8n', 'Make.com', 'Zapier', 'Python'],
+      ventureIdea: 'AI workflow audit and automated CRM setup agency.',
     },
     {
-      id: 'community-building',
-      title: 'Networking & Community Building',
+      id: 'mobile',
+      category: 'technical',
+      title: 'Cross-Platform Mobile App Prototyping',
+      icon: Smartphone,
+      color: 'from-cyan-500 to-blue-500',
+      difficulty: 'Intermediate',
+      timeframe: '8-10 Weeks',
+      description: 'Build native iOS and Android applications with React Native and Flutter for student lifestyle, productivity, and local commerce.',
+      tools: ['React Native', 'Expo', 'Flutter', 'Firebase'],
+      ventureIdea: 'Niche campus utility or community marketplace app.',
+    },
+    {
+      id: 'uiux',
       category: 'growth',
-      icon: Users,
-      color: 'border-indigo-500/30 text-indigo-400',
-      badge: 'Network',
-      desc: 'Cultivating authentic relationships with student founders, industry operators, and potential collaborative partners globally.',
-      modules: ['Peer Accountability Circles', 'Event Hosting & Virtual AMAs', 'Collaborative Masterminds'],
+      title: 'UI/UX Product Design & Figma Mastery',
+      icon: Palette,
+      color: 'from-violet-500 to-purple-500',
+      difficulty: 'Beginner to Intermediate',
+      timeframe: '4-6 Weeks',
+      description: 'Master user research, wireframing, high-fidelity Figma design systems, interactive prototypes, and conversion rate optimization.',
+      tools: ['Figma', 'Framer', 'Design Tokens', 'UserTesting'],
+      ventureIdea: 'Landing page design agency delivering conversion-optimized layouts.',
     },
     {
-      id: 'digital-tools',
-      title: 'Modern Toolchains & Product Management',
-      category: 'strategy',
-      icon: Wrench,
-      color: 'border-yellow-500/30 text-yellow-400',
-      badge: 'Execution',
-      desc: 'Navigating Figma, Notion workspaces, Git version control, Supabase backends, and Stripe/Razorpay payment infrastructure.',
-      modules: ['Rapid UI/UX Wireframing in Figma', 'Notion Ops & Client Dashboards', 'Payment & Analytics Setup'],
+      id: 'video',
+      category: 'growth',
+      title: 'Short-Form Video & Visual Storytelling',
+      icon: Video,
+      color: 'from-amber-500 to-orange-500',
+      difficulty: 'Beginner',
+      timeframe: '3-5 Weeks',
+      description: 'Master storytelling, CapCut editing, motion graphics, and algorithmic retention hooks for YouTube Shorts, Reels, and TikTok.',
+      tools: ['Premiere Pro', 'CapCut', 'After Effects', 'Descript'],
+      ventureIdea: 'Content repurposing and viral distribution partner for B2B founders.',
     },
     {
-      id: 'practical-learning',
-      title: 'Practical Learning & Venture Shipping',
-      category: 'strategy',
-      icon: BookOpen,
-      color: 'border-rose-500/30 text-rose-400',
-      badge: 'Output',
-      desc: 'Replacing theoretical tests with deployed products, live client testimonials, and measurable marketplace feedback loops.',
-      modules: ['14-Day Sprint Execution', 'User Feedback Loops', 'Iteration & Scale Roadmaps'],
+      id: 'growth-marketing',
+      category: 'growth',
+      title: 'Performance Marketing & Lead Funnels',
+      icon: Megaphone,
+      color: 'from-emerald-500 to-teal-500',
+      difficulty: 'All Levels',
+      timeframe: '6-8 Weeks',
+      description: 'Master SEO, Google Search Console, meta advertising funnels, email automation sequences, and analytical tracking.',
+      tools: ['Google Ads', 'Meta Ads', 'GA4', 'ConvertKit', 'SEMrush'],
+      ventureIdea: 'Performance lead generation boutique charging on pay-per-lead models.',
+    },
+    {
+      id: 'ecommerce',
+      category: 'venture',
+      title: 'E-Commerce & Digital Asset Monetization',
+      icon: ShoppingCart,
+      color: 'from-pink-500 to-rose-500',
+      difficulty: 'Beginner to Intermediate',
+      timeframe: '4-6 Weeks',
+      description: 'Package templates, digital toolkits, specialized newsletters, and niche merchandise into high-margin automated storefronts.',
+      tools: ['Shopify', 'Gumroad', 'Stripe', 'Notion'],
+      ventureIdea: 'Digital template store generating recurring passive royalties.',
     },
   ];
 
-  const filteredDomains = activeTrack === 'all'
-    ? skillDomains
-    : skillDomains.filter((d) => d.category === activeTrack);
+  const filteredTracks = tracks.filter((t) => selectedTrack === 'all' || t.category === selectedTrack);
 
   return (
-    <div className="pt-28 pb-20 space-y-16">
-      {/* Header */}
-      <section className="container-custom text-center max-w-4xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/60 border border-blue-500/40 text-xs font-mono font-bold text-blue-300 uppercase tracking-widest">
-          <Globe className="w-3.5 h-3.5 text-blue-400" />
-          <span>DIGITAL ENTREPRENEURSHIP HUB</span>
-        </div>
+    <div className="pt-24 pb-14 space-y-12 sm:space-y-14">
+      {/* Top Back Button & Header */}
+      <section className="container-custom">
+        <PageBackButton />
+        <div className="text-center max-w-3xl mx-auto space-y-3 pt-2">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/60 border border-blue-500/40 text-xs font-mono font-bold text-blue-300 uppercase tracking-widest">
+            <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+            <span>CAPABILITY ACCELERATOR</span>
+          </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
-          Master the Capabilities That Create <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400">
-            Real Economic Autonomy
-          </span>
-        </h1>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            High-Income Digital Skills & <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">
+              Venture Roadmaps
+            </span>
+          </h1>
 
-        <p className="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-          The internet rewards builders, not test-takers. Explore the essential digital pillars that enable college students to launch, operate, and scale legitimate ventures.
-        </p>
+          <p className="text-slate-300 text-xs sm:text-sm md:text-base leading-relaxed">
+            Choose your specialization track. Learn by building functional digital assets that attract paying clients and venture opportunities.
+          </p>
 
-        {/* Filter Pills */}
-        <div className="pt-4 flex items-center justify-center gap-2 flex-wrap">
-          <button
-            onClick={() => setActiveTrack('all')}
-            className={`px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all ${
-              activeTrack === 'all'
-                ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/30'
-                : 'bg-white/5 text-slate-400 hover:text-white border border-white/5'
-            }`}
-          >
-            All 8 Pillars
-          </button>
-          <button
-            onClick={() => setActiveTrack('technical')}
-            className={`px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all ${
-              activeTrack === 'technical'
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
-                : 'bg-white/5 text-slate-400 hover:text-white border border-white/5'
-            }`}
-          >
-            Technical & AI
-          </button>
-          <button
-            onClick={() => setActiveTrack('growth')}
-            className={`px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all ${
-              activeTrack === 'growth'
-                ? 'bg-pink-600 text-white shadow-lg shadow-pink-500/30'
-                : 'bg-white/5 text-slate-400 hover:text-white border border-white/5'
-            }`}
-          >
-            Growth & Brand
-          </button>
-          <button
-            onClick={() => setActiveTrack('strategy')}
-            className={`px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all ${
-              activeTrack === 'strategy'
-                ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/30'
-                : 'bg-white/5 text-slate-400 hover:text-white border border-white/5'
-            }`}
-          >
-            Venture & Execution
-          </button>
+          {/* Filter Pills */}
+          <div className="pt-2 flex items-center justify-center gap-2 flex-wrap">
+            <button
+              onClick={() => setSelectedTrack('all')}
+              className={`px-3.5 py-1 rounded-full text-xs font-mono font-semibold transition-all ${
+                selectedTrack === 'all'
+                  ? 'bg-purple-600 text-white shadow-lg'
+                  : 'bg-white/5 text-slate-400 hover:text-white border border-white/5'
+              }`}
+            >
+              All Skills ({tracks.length})
+            </button>
+            <button
+              onClick={() => setSelectedTrack('technical')}
+              className={`px-3.5 py-1 rounded-full text-xs font-mono font-semibold transition-all ${
+                selectedTrack === 'technical'
+                  ? 'bg-purple-600 text-white shadow-lg'
+                  : 'bg-white/5 text-slate-400 hover:text-white border border-white/5'
+              }`}
+            >
+              Technical & AI
+            </button>
+            <button
+              onClick={() => setSelectedTrack('growth')}
+              className={`px-3.5 py-1 rounded-full text-xs font-mono font-semibold transition-all ${
+                selectedTrack === 'growth'
+                  ? 'bg-purple-600 text-white shadow-lg'
+                  : 'bg-white/5 text-slate-400 hover:text-white border border-white/5'
+              }`}
+            >
+              Growth & Brand
+            </button>
+            <button
+              onClick={() => setSelectedTrack('venture')}
+              className={`px-3.5 py-1 rounded-full text-xs font-mono font-semibold transition-all ${
+                selectedTrack === 'venture'
+                  ? 'bg-purple-600 text-white shadow-lg'
+                  : 'bg-white/5 text-slate-400 hover:text-white border border-white/5'
+              }`}
+            >
+              Venture Strategy
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* Grid of Skill Cards */}
+      {/* Grid of Capability Tracks */}
       <section className="container-custom">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filteredDomains.map((domain) => {
-            const Icon = domain.icon;
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {filteredTracks.map((track) => {
+            const Icon = track.icon;
             return (
               <div
-                key={domain.id}
-                className={`glass-card p-6 rounded-2xl border ${domain.color} flex flex-col justify-between group hover:scale-[1.02] transition-all duration-300`}
+                key={track.id}
+                className="glass-card p-6 rounded-2xl border border-white/10 flex flex-col justify-between group hover:border-purple-500/40 transition-all space-y-5"
               >
-                <div className="space-y-4">
+                <div className="space-y-3.5">
                   <div className="flex items-center justify-between">
-                    <div className="w-11 h-11 rounded-xl bg-black/50 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <div
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-tr ${track.color} text-white shadow-md group-hover:scale-105 transition-transform`}
+                    >
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/5 border border-white/10 text-slate-300">
-                      {domain.badge}
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-white/5 text-slate-400 border border-white/5">
+                      {track.timeframe}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-bold text-white group-hover:text-purple-200 transition-colors leading-snug">
-                    {domain.title}
-                  </h3>
+                  <h2 className="text-base sm:text-lg font-bold text-white group-hover:text-purple-300 transition-colors">
+                    {track.title}
+                  </h2>
 
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    {domain.desc}
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    {track.description}
                   </p>
 
-                  <div className="space-y-1.5 pt-2 border-t border-white/5">
-                    <span className="text-[10px] font-mono uppercase font-bold text-slate-400 tracking-wider">
-                      Key Competencies:
+                  <div className="p-3 rounded-xl bg-black/40 border border-white/5 space-y-1">
+                    <span className="text-[10px] font-mono font-bold text-purple-400 uppercase">
+                      Suggested Venture Model:
                     </span>
-                    {domain.modules.map((m, i) => (
-                      <div key={i} className="flex items-center gap-1.5 text-xs text-slate-300">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-                        <span className="truncate">{m}</span>
-                      </div>
+                    <p className="text-xs text-slate-300 leading-snug">
+                      {track.ventureIdea}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1 pt-1">
+                    {track.tools.map((tool, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-slate-400 border border-white/5"
+                      >
+                        {tool}
+                      </span>
                     ))}
                   </div>
+                </div>
+
+                <div className="pt-3 border-t border-white/10 flex items-center justify-between">
+                  <span className="text-[11px] text-slate-500 font-mono">{track.difficulty}</span>
+                  <Link
+                    to="/resources"
+                    className="text-xs font-bold text-blue-400 hover:text-blue-300 inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform"
+                  >
+                    <span>Read Guides</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </Link>
                 </div>
               </div>
             );
@@ -209,24 +236,47 @@ export const DigitalEntrepreneurshipPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Bottom CTA to join cohort */}
-      <section className="container-custom max-w-4xl mx-auto">
-        <div className="glass-panel p-8 sm:p-10 rounded-3xl border border-purple-500/30 text-center space-y-4 bg-gradient-to-r from-purple-950/40 via-slate-900 to-blue-950/40">
-          <Sparkles className="w-8 h-8 text-purple-400 mx-auto" />
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
-            Ready to Build Your First Venture?
-          </h3>
-          <p className="text-slate-300 text-sm max-w-xl mx-auto leading-relaxed">
-            Join THE VISIONEX creator cohort and work alongside motivated student peers solving real-world challenges.
-          </p>
-          <div className="pt-2 flex items-center justify-center gap-3">
-            <Link to="/register" className="btn-primary text-sm py-3 px-8 shadow-xl">
-              <span>Start Learning Free</span>
-              <ArrowRight className="w-4 h-4 ml-1" />
-            </Link>
-            <Link to="/community" className="btn-secondary text-sm py-3 px-6">
-              <span>Meet Other Creators</span>
-            </Link>
+      {/* 4 Pillars of Venture Building Framework */}
+      <section className="container-custom">
+        <div className="glass-panel p-6 sm:p-10 rounded-3xl border border-white/10 space-y-6 max-w-5xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <span className="text-xs font-mono font-bold text-purple-400 uppercase tracking-widest">
+              EXECUTION FRAMEWORK
+            </span>
+            <h2 className="text-xl sm:text-2xl font-bold text-white">
+              The 4 Steps from Skill to Venture
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="p-4 rounded-xl bg-white/5 border border-white/5 space-y-1.5">
+              <span className="text-xs font-mono font-bold text-purple-400">STEP 01</span>
+              <h3 className="text-sm font-bold text-white">Select One Skill</h3>
+              <p className="text-[11px] text-slate-400 leading-relaxed">
+                Avoid scattershot learning. Pick one core high-leverage skill and commit for 60 days.
+              </p>
+            </div>
+            <div className="p-4 rounded-xl bg-white/5 border border-white/5 space-y-1.5">
+              <span className="text-xs font-mono font-bold text-indigo-400">STEP 02</span>
+              <h3 className="text-sm font-bold text-white">Build Proof of Work</h3>
+              <p className="text-[11px] text-slate-400 leading-relaxed">
+                Publish 3 publicly verifiable portfolio case studies on GitHub, LinkedIn, and Framer.
+              </p>
+            </div>
+            <div className="p-4 rounded-xl bg-white/5 border border-white/5 space-y-1.5">
+              <span className="text-xs font-mono font-bold text-blue-400">STEP 03</span>
+              <h3 className="text-sm font-bold text-white">Acquire 1st Client</h3>
+              <p className="text-[11px] text-slate-400 leading-relaxed">
+                Reach out to businesses with tailored proposals and deliver undeniable value.
+              </p>
+            </div>
+            <div className="p-4 rounded-xl bg-white/5 border border-white/5 space-y-1.5">
+              <span className="text-xs font-mono font-bold text-emerald-400">STEP 04</span>
+              <h3 className="text-sm font-bold text-white">Delegate & Multiply</h3>
+              <p className="text-[11px] text-slate-400 leading-relaxed">
+                Hire student peers to handle project deliverables and scale into an agency.
+              </p>
+            </div>
           </div>
         </div>
       </section>

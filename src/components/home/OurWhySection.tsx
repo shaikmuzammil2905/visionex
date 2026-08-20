@@ -69,10 +69,10 @@ export const OurWhySection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 relative overflow-hidden bg-[#07090e]">
+    <section className="py-10 sm:py-14 relative overflow-hidden bg-[#07090e]">
       <div className="container-custom relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10 space-y-2.5">
           <div className="inline-block px-3 py-1 rounded-full bg-purple-950/50 border border-purple-500/30 text-xs font-mono font-bold text-purple-300 uppercase tracking-widest">
             THE PHILOSOPHY
           </div>

@@ -30,6 +30,8 @@ import { isPaymentConfigured } from '../lib/payment';
 import { dataStore } from '../lib/dataStore';
 import { trackPageView } from '../lib/analytics';
 
+import { PageBackButton } from '../components/layout/PageBackButton';
+
 export const AdminPage: React.FC = () => {
   const { user, isAdmin } = useAuth();
   const { posts, savePost, deletePost } = useBlog();
@@ -218,10 +220,12 @@ export const AdminPage: React.FC = () => {
   );
 
   return (
-    <div className="pt-28 pb-20">
-      <div className="container-custom max-w-7xl mx-auto space-y-8">
+    <div className="pt-24 pb-14">
+      <div className="container-custom max-w-7xl mx-auto space-y-6">
+        <PageBackButton fallbackPath="/" label="Back to Home" />
+
         {/* Admin Header */}
-        <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-purple-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 bg-gradient-to-r from-purple-950/40 via-slate-900 to-indigo-950/40">
+        <div className="glass-panel p-5 sm:p-7 rounded-3xl border border-purple-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 bg-gradient-to-r from-purple-950/40 via-slate-900 to-indigo-950/40">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 rounded-2xl bg-purple-900/80 border border-purple-500/40 flex items-center justify-center text-purple-300 shadow-xl shrink-0">
               <Shield className="w-7 h-7" />

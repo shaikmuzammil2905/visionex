@@ -31,9 +31,9 @@ export const TheProblemSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-[#07090e] via-[#090d15] to-[#07090e] relative overflow-hidden">
+    <section className="py-10 sm:py-14 bg-gradient-to-b from-[#07090e] via-[#090d15] to-[#07090e] relative overflow-hidden">
       <div className="container-custom relative z-10">
-        <div className="max-w-3xl mx-auto text-center mb-16 space-y-3">
+        <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-10 space-y-2.5">
           <div className="inline-block px-3 py-1 rounded-full bg-red-950/40 border border-red-500/30 text-xs font-mono font-bold text-red-400 uppercase tracking-widest">
             THE REALITY CHECK
           </div>
