@@ -1,142 +1,94 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { User, Rocket, Users, Infinity as InfinityIcon, ArrowRight, Sparkles, Sliders, ShieldCheck } from 'lucide-react';
+import { User, Rocket, Users, Infinity as InfinityIcon, ArrowRight } from 'lucide-react';
 
 export const MissionMultiplierSection: React.FC = () => {
-  const [founderCount, setFounderCount] = useState<number>(25);
-
-  const ventures = founderCount;
-  const opportunities = founderCount * 10;
-  const communityRipple = (founderCount * 45).toLocaleString();
-
   return (
-    <section className="py-20 relative overflow-hidden bg-gradient-to-b from-[#07090e] via-[#090d16] to-[#07090e]">
-      {/* Background glow circle */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none" />
+    <section className="py-16 sm:py-24 relative overflow-hidden bg-[#07090e]">
+      {/* Ambient gradient glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[500px] bg-purple-900/10 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="container-custom relative z-10 text-center">
+      <div className="container-custom relative z-10 text-center max-w-5xl mx-auto">
         {/* Eyebrow */}
-        <div className="inline-block text-xs uppercase font-mono tracking-widest text-purple-400 font-bold mb-3">
+        <div className="inline-block text-xs uppercase font-mono tracking-widest text-purple-400 font-bold mb-2">
           OUR IDEA
         </div>
 
-        {/* Headline */}
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
-          THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-violet-400 to-blue-400">1 → 10</span> MISSION
+        {/* Headline (Matching Reference: THE 1 -> 10 MISSION with colored numbers) */}
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mb-3 font-heading">
+          THE <span className="text-purple-400">1</span> <span className="text-blue-400">→</span> <span className="text-purple-400">10</span> MISSION
         </h2>
 
         {/* Subtext */}
-        <p className="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed mb-12">
-          One person can create more than an income. They can create opportunities.<br className="hidden sm:inline" />
-          Our vision is simple:
-        </p>
-
-        {/* 4 Flow Cards (Exact Layout from Reference Image) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center max-w-5xl mx-auto">
-          {/* Card 1 */}
-          <div className="glass-card p-6 flex flex-col items-center justify-center text-center border-purple-500/20 hover:border-purple-500/50 transition-all group min-h-[160px]">
-            <div className="w-12 h-12 rounded-xl bg-purple-950/60 border border-purple-500/40 flex items-center justify-center text-purple-400 mb-3 group-hover:scale-110 transition-transform">
-              <User className="w-6 h-6" />
-            </div>
-            <h3 className="text-base font-bold text-white mb-1">1 Student</h3>
-            <p className="text-xs text-slate-400 font-medium">Entrepreneur</p>
-          </div>
-
-          {/* Card 2 */}
-          <div className="glass-card p-6 flex flex-col items-center justify-center text-center border-blue-500/20 hover:border-blue-500/50 transition-all group min-h-[160px]">
-            <div className="w-12 h-12 rounded-xl bg-blue-950/60 border border-blue-500/40 flex items-center justify-center text-blue-400 mb-3 group-hover:scale-110 transition-transform">
-              <Rocket className="w-6 h-6" />
-            </div>
-            <h3 className="text-base font-bold text-white mb-1">1 Growing</h3>
-            <p className="text-xs text-slate-400 font-medium">Venture</p>
-          </div>
-
-          {/* Card 3 */}
-          <div className="glass-card p-6 flex flex-col items-center justify-center text-center border-violet-500/20 hover:border-violet-500/50 transition-all group min-h-[160px]">
-            <div className="w-12 h-12 rounded-xl bg-violet-950/60 border border-violet-500/40 flex items-center justify-center text-violet-400 mb-3 group-hover:scale-110 transition-transform">
-              <Users className="w-6 h-6" />
-            </div>
-            <h3 className="text-base font-bold text-white mb-1">10+ Meaningful</h3>
-            <p className="text-xs text-slate-400 font-medium">Opportunities</p>
-          </div>
-
-          {/* Card 4 */}
-          <div className="glass-card p-6 flex flex-col items-center justify-center text-center border-cyan-500/20 hover:border-cyan-500/50 transition-all group min-h-[160px]">
-            <div className="w-12 h-12 rounded-xl bg-cyan-950/60 border border-cyan-500/40 flex items-center justify-center text-cyan-400 mb-3 group-hover:scale-110 transition-transform">
-              <InfinityIcon className="w-6 h-6" />
-            </div>
-            <h3 className="text-base font-bold text-white mb-1">Endless</h3>
-            <p className="text-xs text-slate-400 font-medium">Impact</p>
-          </div>
+        <div className="text-slate-300 text-xs sm:text-sm md:text-base leading-relaxed mb-10 max-w-xl mx-auto space-y-0.5">
+          <p>One person can create more than an income.</p>
+          <p>They can create opportunities.</p>
+          <p className="text-slate-400">Our vision is simple:</p>
         </div>
 
-        {/* Interactive Multiplier Simulation Box */}
-        <div className="mt-12 max-w-3xl mx-auto glass-panel p-6 sm:p-8 text-left border border-white/10">
-          <div className="flex items-center justify-between gap-4 mb-6 flex-wrap">
-            <div className="flex items-center gap-2 text-sm font-semibold text-white">
-              <Sliders className="w-4 h-4 text-purple-400" />
-              <span>Interactive Ripple Multiplier Simulator</span>
+        {/* 4 Process Cards connected with Glowing Right Arrows (Exact match to Reference) */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-2 lg:gap-4 max-w-4xl mx-auto">
+          {/* Card 1: 1 Student Entrepreneur */}
+          <div className="w-full sm:w-44 lg:w-48 p-5 rounded-2xl bg-[#0b0f19] border border-white/10 hover:border-purple-500/40 flex flex-col items-center justify-center text-center shadow-xl transition-all group">
+            <div className="w-12 h-12 rounded-xl bg-purple-950/60 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-3 group-hover:scale-110 transition-transform">
+              <User className="w-6 h-6" />
             </div>
-            <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-purple-950/80 text-purple-300 border border-purple-500/30">
-              {founderCount} Student Creators
-            </span>
+            <div className="text-xs sm:text-sm font-bold text-white leading-tight">1 Student</div>
+            <div className="text-[11px] text-slate-400 mt-0.5">Entrepreneur</div>
           </div>
 
-          {/* Slider */}
-          <div className="space-y-2 mb-6">
-            <input
-              type="range"
-              min="1"
-              max="200"
-              value={founderCount}
-              onChange={(e) => setFounderCount(Number(e.target.value))}
-              className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500"
-              aria-label="Number of student creators"
-            />
-            <div className="flex justify-between text-[11px] font-mono text-slate-500">
-              <span>1 Creator</span>
-              <span>100 Creators</span>
-              <span>200 Creators</span>
-            </div>
+          {/* Arrow 1 */}
+          <div className="text-purple-500 font-extrabold text-xl hidden sm:block shrink-0 px-1">
+            →
           </div>
 
-          {/* Projected Outcomes */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10 text-center">
-            <div className="p-3.5 rounded-xl bg-white/5 border border-white/5">
-              <div className="text-2xl font-extrabold text-white font-mono">{ventures}</div>
-              <div className="text-xs text-slate-400 mt-1">Digital Ventures</div>
+          {/* Card 2: 1 Growing Venture */}
+          <div className="w-full sm:w-44 lg:w-48 p-5 rounded-2xl bg-[#0b0f19] border border-white/10 hover:border-purple-500/40 flex flex-col items-center justify-center text-center shadow-xl transition-all group">
+            <div className="w-12 h-12 rounded-xl bg-indigo-950/60 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mb-3 group-hover:scale-110 transition-transform">
+              <Rocket className="w-6 h-6" />
             </div>
-            <div className="p-3.5 rounded-xl bg-purple-950/40 border border-purple-500/30">
-              <div className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-blue-300 font-mono">
-                {opportunities}+
-              </div>
-              <div className="text-xs text-purple-200 mt-1">Opportunities Created</div>
+            <div className="text-xs sm:text-sm font-bold text-white leading-tight">1 Growing</div>
+            <div className="text-[11px] text-slate-400 mt-0.5">Venture</div>
+          </div>
+
+          {/* Arrow 2 */}
+          <div className="text-purple-500 font-extrabold text-xl hidden sm:block shrink-0 px-1">
+            →
+          </div>
+
+          {/* Card 3: 10+ Meaningful Opportunities */}
+          <div className="w-full sm:w-44 lg:w-48 p-5 rounded-2xl bg-[#0b0f19] border border-white/10 hover:border-purple-500/40 flex flex-col items-center justify-center text-center shadow-xl transition-all group">
+            <div className="w-12 h-12 rounded-xl bg-blue-950/60 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-3 group-hover:scale-110 transition-transform">
+              <Users className="w-6 h-6" />
             </div>
-            <div className="p-3.5 rounded-xl bg-white/5 border border-white/5">
-              <div className="text-2xl font-extrabold text-white font-mono">{communityRipple}</div>
-              <div className="text-xs text-slate-400 mt-1">Peers Impacted</div>
+            <div className="text-xs sm:text-sm font-bold text-white leading-tight">10+ Meaningful</div>
+            <div className="text-[11px] text-slate-400 mt-0.5">Opportunities</div>
+          </div>
+
+          {/* Arrow 3 */}
+          <div className="text-purple-500 font-extrabold text-xl hidden sm:block shrink-0 px-1">
+            →
+          </div>
+
+          {/* Card 4: Endless Impact */}
+          <div className="w-full sm:w-44 lg:w-48 p-5 rounded-2xl bg-[#0b0f19] border border-white/10 hover:border-purple-500/40 flex flex-col items-center justify-center text-center shadow-xl transition-all group">
+            <div className="w-12 h-12 rounded-xl bg-purple-950/60 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-3 group-hover:scale-110 transition-transform">
+              <InfinityIcon className="w-6 h-6" />
             </div>
+            <div className="text-xs sm:text-sm font-bold text-white leading-tight">Endless</div>
+            <div className="text-[11px] text-slate-400 mt-0.5">Impact</div>
           </div>
         </div>
 
         {/* CTA Button (Matches Reference: "Discover the 1 → 10 Mission ->") */}
-        <div className="mt-10">
+        <div className="mt-10 max-w-sm sm:max-w-md mx-auto">
           <Link
             to="/mission"
-            className="btn-primary text-sm md:text-base py-3.5 px-8 shadow-2xl group inline-flex items-center gap-2"
+            className="w-full bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-semibold text-xs sm:text-sm py-3.5 px-8 rounded-xl shadow-xl shadow-purple-600/30 transition-all flex items-center justify-center gap-2 group hover:scale-[1.02] active:scale-95"
           >
-            <Sparkles className="w-4 h-4 text-purple-200" />
             <span>Discover the 1 → 10 Mission</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>
-        </div>
-
-        {/* Legal Disclaimer */}
-        <div className="mt-8 max-w-xl mx-auto text-xs text-slate-500 leading-relaxed flex items-center justify-center gap-2">
-          <ShieldCheck className="w-4 h-4 text-slate-400 shrink-0" />
-          <span>
-            This is not a promise of guaranteed jobs or income. It is a mission to encourage opportunity creation through digital skill mastery.
-          </span>
         </div>
       </div>
     </section>
