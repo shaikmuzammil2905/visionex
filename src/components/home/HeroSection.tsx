@@ -298,15 +298,7 @@ export const HeroSection: React.FC = () => {
               />
             </svg>
 
-            {/* Central Philosophy Quote Badge */}
-            <div className="relative z-20 text-center max-w-[190px] sm:max-w-[230px] px-3 py-2 rounded-xl bg-black/60 backdrop-blur-md border border-purple-500/30 shadow-xl shadow-purple-950/40 transform hover:scale-105 transition-all">
-              <p className="text-[10px] sm:text-xs font-medium text-slate-200 leading-relaxed italic">
-                "Be the reason someone else's future changes."
-              </p>
-              <span className="inline-block mt-1 text-[8px] sm:text-[9px] font-mono text-purple-400 font-bold uppercase tracking-widest">
-                Click nodes for details
-              </span>
-            </div>
+
 
             {/* 1. Node: LEARN (Top) */}
             <button

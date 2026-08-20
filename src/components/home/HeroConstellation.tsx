@@ -115,12 +115,7 @@ export const HeroConstellation: React.FC = () => {
         />
       </svg>
 
-      {/* Center Philosophy Quote Badge */}
-      <div className="absolute top-[32%] left-1/2 -translate-x-1/2 z-20 text-center max-w-[200px] sm:max-w-[240px] px-3 py-2 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 shadow-lg">
-        <p className="text-[11px] sm:text-xs font-medium text-slate-200 leading-relaxed italic">
-          "Be the reason someone else's future changes."
-        </p>
-      </div>
+
 
       {/* 1. Top Node: LEARN */}
       <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center group/node cursor-pointer">
