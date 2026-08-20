@@ -205,7 +205,6 @@ export const HeroSection: React.FC = () => {
           loop
           muted
           playsInline
-          poster="/hero-desk.jpg"
           className="absolute inset-0 w-full h-full object-cover object-[62%_center] lg:object-center brightness-105 contrast-105 transition-all duration-700"
         />
 
