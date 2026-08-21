@@ -10,10 +10,7 @@ import {
   CheckCircle2,
   Eye,
   EyeOff,
-  Sparkles,
   Loader2,
-  Copy,
-  Check,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -22,20 +19,14 @@ export const ForgotPasswordPage: React.FC = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('rakhiguptha26@gmail.com');
-  const [secretCode, setSecretCode] = useState('VX-ADMIN-7K9P-4M2Q-X8R6');
+  const [secretCode, setSecretCode] = useState('');
+  const [showSecretCode, setShowSecretCode] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [copiedCode, setCopiedCode] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-
-  const handleCopyCode = () => {
-    navigator.clipboard.writeText('VX-ADMIN-7K9P-4M2Q-X8R6');
-    setCopiedCode(true);
-    setTimeout(() => setCopiedCode(false), 2000);
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,7 +60,7 @@ export const ForgotPasswordPage: React.FC = () => {
           navigate('/admin');
         }, 1200);
       } else {
-        setError(res.error || 'Failed to reset password. Please check your Secret Code.');
+        setError(res.error || 'Invalid Master Secret Code. Access denied.');
       }
     } catch (err: any) {
       setError(err.message || 'Error occurred while resetting password.');
@@ -98,7 +89,7 @@ export const ForgotPasswordPage: React.FC = () => {
                 THE VISIONE<span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">X</span>
               </span>
               <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest block font-bold">
-                Security & Recovery
+                Admin Password Reset
               </span>
             </div>
           </Link>
@@ -107,28 +98,8 @@ export const ForgotPasswordPage: React.FC = () => {
             Reset Admin Password
           </h2>
           <p className="text-xs text-slate-400">
-            Authorize with the Master Secret Code to set a new password instantly.
+            Enter your private Master Secret Code to authorize a new password.
           </p>
-        </div>
-
-        {/* Master Code Display Banner */}
-        <div className="p-3.5 rounded-2xl bg-purple-950/70 border border-purple-500/40 flex items-center justify-between gap-2 shadow-lg">
-          <div className="flex items-center gap-2 text-xs">
-            <Sparkles className="w-4 h-4 text-purple-400 shrink-0" />
-            <div>
-              <span className="text-[10px] uppercase font-mono text-purple-300 font-bold block">Master Secret Code:</span>
-              <code className="text-xs font-mono font-bold text-white tracking-wider">VX-ADMIN-7K9P-4M2Q-X8R6</code>
-            </div>
-          </div>
-          <button
-            type="button"
-            onClick={handleCopyCode}
-            className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs flex items-center gap-1 transition-colors cursor-pointer shrink-0"
-            title="Copy Secret Code"
-          >
-            {copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-            <span className="text-[10px] font-semibold">{copiedCode ? 'Copied' : 'Copy'}</span>
-          </button>
         </div>
 
         {/* Reset Card */}
@@ -166,28 +137,26 @@ export const ForgotPasswordPage: React.FC = () => {
             </div>
 
             <div className="space-y-1.5 text-xs">
-              <div className="flex items-center justify-between">
-                <label className="font-mono font-bold uppercase text-slate-300">
-                  Master Secret Code *
-                </label>
-                <button
-                  type="button"
-                  onClick={() => setSecretCode('VX-ADMIN-7K9P-4M2Q-X8R6')}
-                  className="text-[10px] text-purple-400 hover:text-purple-300 font-mono underline cursor-pointer"
-                >
-                  Insert Default Code
-                </button>
-              </div>
+              <label className="font-mono font-bold uppercase text-slate-300">
+                Master Secret Code *
+              </label>
               <div className="relative">
                 <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-purple-400" />
                 <input
-                  type="text"
+                  type={showSecretCode ? 'text' : 'password'}
                   required
                   value={secretCode}
                   onChange={(e) => setSecretCode(e.target.value)}
-                  placeholder="VX-ADMIN-7K9P-4M2Q-X8R6"
-                  className="w-full bg-slate-950/90 border border-purple-500/50 rounded-xl pl-10 pr-4 py-2.5 text-white font-mono font-bold tracking-wider placeholder:text-slate-400 focus:outline-none focus:border-purple-400 uppercase"
+                  placeholder="Enter private master secret code"
+                  className="w-full bg-slate-950/90 border border-white/10 rounded-xl pl-10 pr-10 py-2.5 text-white font-mono placeholder:text-slate-600 focus:outline-none focus:border-purple-500 uppercase"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowSecretCode(!showSecretCode)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white cursor-pointer"
+                >
+                  {showSecretCode ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
             </div>
 
