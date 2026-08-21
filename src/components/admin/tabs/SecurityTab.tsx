@@ -12,10 +12,12 @@ import {
   Database,
   FileText,
   Loader2,
+  Copy,
+  Check,
+  Sparkles,
 } from 'lucide-react';
 import { useAuth } from '../../../context/AuthContext';
 import { useContent } from '../../../context/ContentContext';
-
 
 export const SecurityTab: React.FC = () => {
   const { user, changePassword } = useAuth();
@@ -25,9 +27,16 @@ export const SecurityTab: React.FC = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [copiedCode, setCopiedCode] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+
+  const handleCopySecret = () => {
+    navigator.clipboard.writeText('VX-ADMIN-7K9P-4M2Q-X8R6');
+    setCopiedCode(true);
+    setTimeout(() => setCopiedCode(false), 2000);
+  };
 
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,6 +72,37 @@ export const SecurityTab: React.FC = () => {
 
   return (
     <div className="space-y-6 animate-fadeIn">
+      {/* Master Secret Code Reference Card */}
+      <div className="bg-gradient-to-r from-purple-950/60 via-slate-900/80 to-indigo-950/60 border border-purple-500/40 rounded-3xl p-6 sm:p-8 space-y-3 shadow-2xl">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-purple-400" />
+              <h3 className="text-sm font-bold text-white uppercase tracking-wider font-mono">
+                Master Secret Code (Authorized)
+              </h3>
+            </div>
+            <p className="text-xs text-slate-400">
+              Use this secret key to reset admin passwords or bypass recovery without email delays.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 p-2 rounded-2xl bg-black/50 border border-white/10 shrink-0">
+            <code className="text-sm font-mono font-bold text-purple-300 px-3 tracking-wider">
+              VX-ADMIN-7K9P-4M2Q-X8R6
+            </code>
+            <button
+              type="button"
+              onClick={handleCopySecret}
+              className="p-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs flex items-center gap-1 transition-all cursor-pointer shadow"
+            >
+              {copiedCode ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+              <span>{copiedCode ? 'Copied' : 'Copy'}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Password Change Card */}
       <div className="bg-slate-900/60 border border-white/10 rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl">
         <div className="flex items-center gap-2.5 border-b border-white/10 pb-4">
@@ -109,7 +149,7 @@ export const SecurityTab: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white cursor-pointer"
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
