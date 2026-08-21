@@ -5,7 +5,8 @@ import { useContent } from '../context/ContentContext';
 import { trackPageView, analytics } from '../lib/analytics';
 
 export const ContactPage: React.FC = () => {
-  const { submitContact } = useContent();
+  const { submitContact, websiteContent } = useContent();
+
 
   const [formData, setFormData] = useState({
     name: '',
@@ -89,7 +90,7 @@ export const ContactPage: React.FC = () => {
               
               <div className="space-y-3 text-xs sm:text-sm">
                 <a
-                  href="tel:9652553433"
+                  href={`tel:${websiteContent.contact_section?.phone || '9652553433'}`}
                   className="flex items-start gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-slate-300 hover:text-white"
                 >
                   <div className="w-8 h-8 rounded-lg bg-blue-950/80 text-blue-400 flex items-center justify-center shrink-0">
@@ -97,12 +98,12 @@ export const ContactPage: React.FC = () => {
                   </div>
                   <div>
                     <div className="text-[10px] font-mono text-slate-400 uppercase">Primary Phone</div>
-                    <div className="font-bold text-white">9652553433</div>
+                    <div className="font-bold text-white">{websiteContent.contact_section?.phone || '9652553433'}</div>
                   </div>
                 </a>
 
                 <a
-                  href="https://wa.me/917013429578"
+                  href={`https://wa.me/91${(websiteContent.contact_section?.whatsapp || '7013429578').replace(/[^0-9]/g, '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start gap-3 p-3 rounded-xl bg-emerald-950/30 hover:bg-emerald-950/50 border border-emerald-500/30 transition-all text-emerald-200"
@@ -112,12 +113,12 @@ export const ContactPage: React.FC = () => {
                   </div>
                   <div>
                     <div className="text-[10px] font-mono text-emerald-400 uppercase">WhatsApp Official</div>
-                    <div className="font-bold text-white">7013429578</div>
+                    <div className="font-bold text-white">{websiteContent.contact_section?.whatsapp || '7013429578'}</div>
                   </div>
                 </a>
 
                 <a
-                  href="mailto:rakhiguptha26@gmail.com"
+                  href={`mailto:${websiteContent.contact_section?.email || 'rakhiguptha26@gmail.com'}`}
                   className="flex items-start gap-3 p-3 rounded-xl bg-purple-950/30 hover:bg-purple-950/50 border border-purple-500/30 transition-all text-purple-200"
                 >
                   <div className="w-8 h-8 rounded-lg bg-purple-950 text-purple-400 flex items-center justify-center shrink-0">
@@ -125,7 +126,7 @@ export const ContactPage: React.FC = () => {
                   </div>
                   <div>
                     <div className="text-[10px] font-mono text-purple-400 uppercase">Gmail Official / Direct</div>
-                    <div className="font-bold text-white">rakhiguptha26@gmail.com <span className="text-xs font-normal text-purple-300">(@rakhiguptha26)</span></div>
+                    <div className="font-bold text-white">{websiteContent.contact_section?.email || 'rakhiguptha26@gmail.com'}</div>
                   </div>
                 </a>
 
@@ -135,12 +136,13 @@ export const ContactPage: React.FC = () => {
                   </div>
                   <div>
                     <div className="text-[10px] font-mono text-slate-400 uppercase">HQ Location</div>
-                    <div className="font-bold text-white">Hyderabad / Digital Campus, India</div>
+                    <div className="font-bold text-white">{websiteContent.contact_section?.address || 'Hyderabad / Digital Campus, India'}</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
 
           {/* Right: Contact Form */}
           <div className="lg:col-span-7">

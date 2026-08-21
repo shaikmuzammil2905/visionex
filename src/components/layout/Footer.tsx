@@ -2,8 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, MessageCircle, Mail, MapPin, Sparkles, ArrowUpRight, ShieldCheck, Heart } from 'lucide-react';
 import { analytics } from '../../lib/analytics';
+import { useContent } from '../../context/ContentContext';
 
 export const Footer: React.FC = () => {
+  const { websiteContent, socialLinks } = useContent();
+  const footerCMS = websiteContent.footer;
+
   return (
     <footer className="relative bg-[#05070a] border-t border-white/10 pt-16 pb-12 overflow-hidden">
       {/* Background glow accents */}
@@ -28,7 +32,8 @@ export const Footer: React.FC = () => {
               Don't just find your future. Build it.
             </p>
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-              Empowering students to explore digital entrepreneurship, master practical skills, build legitimate income-generating ventures, and create meaningful opportunities for others.
+              {footerCMS?.tagline ||
+                'Empowering students to explore digital entrepreneurship, master practical skills, build legitimate income-generating ventures, and create meaningful opportunities for others.'}
             </p>
             <div className="pt-2 flex items-center gap-3">
               <Link
@@ -46,6 +51,7 @@ export const Footer: React.FC = () => {
               </Link>
             </div>
           </div>
+
 
           {/* Col 2: Navigation Links */}
           <div className="space-y-3">

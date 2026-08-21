@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { BlogPost, BlogCategory } from '../types';
 import { dataStore, INITIAL_CATEGORIES } from '../lib/dataStore';
+import { subscribeToTable } from '../lib/supabase';
+
 
 interface BlogContextType {
   posts: BlogPost[];
@@ -34,7 +36,16 @@ export const BlogProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     refreshPosts();
+
+    const unsub = subscribeToTable('blog_posts', () => {
+      refreshPosts();
+    });
+
+    return () => {
+      unsub();
+    };
   }, [refreshPosts]);
+
 
   const getPostBySlug = async (slug: string): Promise<BlogPost | null> => {
     const existing = posts.find((p) => p.slug === slug);

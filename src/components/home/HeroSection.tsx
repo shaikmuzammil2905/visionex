@@ -15,6 +15,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { analytics } from '../../lib/analytics';
+import { useContent } from '../../context/ContentContext';
 
 interface NodeDetail {
   id: string;
@@ -32,6 +33,8 @@ interface NodeDetail {
 export const HeroSection: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [activeNode, setActiveNode] = useState<NodeDetail | null>(null);
+  const { websiteContent } = useContent();
+  const heroCMS = websiteContent.hero_section;
 
   // Orbital Nodes Data for Popups
   const nodesData: Record<string, NodeDetail> = {
@@ -232,21 +235,20 @@ export const HeroSection: React.FC = () => {
             {/* Pill Tag */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-950/80 border border-purple-500/50 shadow-[0_0_18px_rgba(139,92,246,0.35)] text-[11px] sm:text-xs font-bold text-purple-300 uppercase tracking-widest font-mono backdrop-blur-md">
               <Sparkles className="w-3.5 h-3.5 text-purple-400 animate-pulse" />
-              <span>THE FUTURE IS CREATED</span>
+              <span>{heroCMS?.badge_text || 'THE FUTURE IS CREATED'}</span>
             </div>
 
             {/* Main Headline */}
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-black tracking-tight text-white leading-[1.08] font-heading drop-shadow-md">
-              DON'T JUST FIND <br />
-              YOUR FUTURE. <br />
+              {heroCMS?.title_line1 || "DON'T JUST FIND YOUR FUTURE."} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-blue-400 drop-shadow-[0_0_25px_rgba(139,92,246,0.4)]">
-                BUILD IT.
+                {heroCMS?.title_gradient_line2 || 'BUILD IT.'}
               </span>
             </h1>
 
             {/* Supporting Tagline */}
             <p className="text-sm sm:text-base md:text-lg font-bold text-purple-200 font-mono tracking-wide">
-              Learn. Build. Earn. Live. Empower.
+              {heroCMS?.subtitle || 'Learn. Build. Earn. Live. Empower.'}
             </p>
 
             {/* Body Description */}
@@ -257,19 +259,19 @@ export const HeroSection: React.FC = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
               <Link
-                to="/mission"
+                to={heroCMS?.primary_cta_link || '/mission'}
                 className="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-semibold text-xs sm:text-sm py-3.5 px-7 rounded-xl shadow-xl shadow-purple-600/30 transition-all flex items-center justify-center gap-2 group hover:scale-[1.02] active:scale-95"
               >
-                <span>Explore Our Mission</span>
+                <span>{heroCMS?.primary_cta_text || 'Explore Our Mission'}</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
-                to="/register"
+                to={heroCMS?.secondary_cta_link || '/register'}
                 onClick={() => analytics.trackJoinCommunity('hero_cta')}
                 className="bg-[#0b0f19]/80 hover:bg-[#121827] text-slate-200 hover:text-white font-semibold text-xs sm:text-sm py-3.5 px-7 rounded-xl border border-white/15 backdrop-blur-md transition-all flex items-center justify-center gap-2"
               >
                 <Users className="w-4 h-4 text-purple-300" />
-                <span>Join Community</span>
+                <span>{heroCMS?.secondary_cta_text || 'Join Community'}</span>
               </Link>
             </div>
           </div>

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Sparkles, User, Mail, Lock, Building, ArrowRight, ShieldCheck, CheckCircle2, Rocket, Phone } from 'lucide-react';
+import { Sparkles, User, Mail, Lock, Building, ArrowRight, ShieldCheck, CheckCircle2, Rocket, Phone, GraduationCap } from 'lucide-react';
 import { PageBackButton } from '../components/layout/PageBackButton';
 import { useAuth } from '../context/AuthContext';
+import { useContent } from '../context/ContentContext';
 import { trackPageView } from '../lib/analytics';
 
 export const RegisterPage: React.FC = () => {
   const { signup } = useAuth();
+  const { submitStudentRegistration } = useContent();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -14,6 +16,9 @@ export const RegisterPage: React.FC = () => {
     email: '',
     phone: '',
     password: '',
+    college_name: '',
+    degree: '',
+    graduation_year: '2026',
   });
 
   const [loading, setLoading] = useState(false);
@@ -43,6 +48,17 @@ export const RegisterPage: React.FC = () => {
       const res = await signup(formData.name, formData.email, formData.phone, formData.password, 'member');
 
       if (res.success) {
+        // Also save student registration record to CMS students table
+        await submitStudentRegistration({
+          full_name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          college_name: formData.college_name || 'Student Institution',
+          degree: formData.degree || 'B.Tech / Degree',
+          graduation_year: formData.graduation_year || '2026',
+          skills: ['Digital Skills', 'Venture Building'],
+        });
+
         setSuccessMsg('Account created successfully!');
         setTimeout(() => {
           navigate('/dashboard');
@@ -56,6 +72,7 @@ export const RegisterPage: React.FC = () => {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="pt-24 pb-14 space-y-6">

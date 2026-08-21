@@ -1,117 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Code, Cpu, Smartphone, Palette, Video, Megaphone, ShoppingCart, ArrowRight, CheckCircle2, ChevronRight, BookOpen, Mail } from 'lucide-react';
+import {
+  Sparkles,
+  Code,
+  Cpu,
+  Smartphone,
+  Palette,
+  Video,
+  Megaphone,
+  ShoppingCart,
+  ArrowRight,
+  CheckCircle2,
+  Mail,
+  BookOpen,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PageBackButton } from '../components/layout/PageBackButton';
 import { trackPageView } from '../lib/analytics';
+import { useContent } from '../context/ContentContext';
 
 export const DigitalEntrepreneurshipPage: React.FC = () => {
   const [selectedTrack, setSelectedTrack] = useState<string>('all');
+  const { publishedPrograms } = useContent();
 
   useEffect(() => {
     document.title = 'Digital Skills & Entrepreneurship | THE VISIONEX';
     trackPageView('/digital-entrepreneurship', document.title);
   }, []);
 
-  const tracks = [
-    {
-      id: 'fullstack',
-      category: 'technical',
-      title: 'Full-Stack Web & MVP Engineering',
-      icon: Code,
-      color: 'from-blue-500 to-indigo-500',
-      difficulty: 'Beginner to Advanced',
-      timeframe: '8-12 Weeks',
-      description: 'Learn modern React, Node.js, Next.js, and Supabase to build rapid web prototypes, client SaaS applications, and marketplace platforms.',
-      tools: ['React', 'TypeScript', 'Supabase', 'Next.js', 'Vite', 'Tailwind'],
-      ventureIdea: 'Custom web portal or micro-SaaS subscription for local businesses.',
-    },
-    {
-      id: 'ai-automation',
-      category: 'technical',
-      title: 'AI Tools, Agents & Workflow Automation',
-      icon: Cpu,
-      color: 'from-purple-500 to-pink-500',
-      difficulty: 'All Levels',
-      timeframe: '4-6 Weeks',
-      description: 'Harness LLMs, n8n, Make, and Python scripting to automate business operations, lead qualification pipelines, customer Gmail reminders, and content synthesis.',
-      tools: ['ChatGPT', 'Claude', 'n8n', 'Make.com', 'Zapier', 'Python', 'Gmail API'],
-      ventureIdea: 'AI workflow audit, automated CRM setup, and automated lead ordering reminder systems.',
-    },
-    {
-      id: 'lead-gmail-automation',
-      category: 'growth',
-      title: 'Lead Ordering & Customer Gmail Reminders',
-      icon: Mail,
-      color: 'from-amber-500 to-rose-500',
-      difficulty: 'Beginner to Intermediate',
-      timeframe: '2-4 Weeks',
-      description: 'Build automated Gmail reminder to customers for leads ordering, instant order confirmations, and automated client follow-up sequences.',
-      tools: ['Gmail API', 'Make.com', 'Zapier', 'Google Sheets', 'Webhooks'],
-      ventureIdea: 'Automated lead ordering and customer notification agency.',
-    },
-    {
-      id: 'mobile',
-      category: 'technical',
-      title: 'Cross-Platform Mobile App Prototyping',
-      icon: Smartphone,
-      color: 'from-cyan-500 to-blue-500',
-      difficulty: 'Intermediate',
-      timeframe: '8-10 Weeks',
-      description: 'Build native iOS and Android applications with React Native and Flutter for student lifestyle, productivity, and local commerce.',
-      tools: ['React Native', 'Expo', 'Flutter', 'Firebase'],
-      ventureIdea: 'Niche campus utility or community marketplace app.',
-    },
-    {
-      id: 'uiux',
-      category: 'growth',
-      title: 'UI/UX Product Design & Figma Mastery',
-      icon: Palette,
-      color: 'from-violet-500 to-purple-500',
-      difficulty: 'Beginner to Intermediate',
-      timeframe: '4-6 Weeks',
-      description: 'Master user research, wireframing, high-fidelity Figma design systems, interactive prototypes, and conversion rate optimization.',
-      tools: ['Figma', 'Framer', 'Design Tokens', 'UserTesting'],
-      ventureIdea: 'Landing page design agency delivering conversion-optimized layouts.',
-    },
-    {
-      id: 'video',
-      category: 'growth',
-      title: 'Short-Form Video & Visual Storytelling',
-      icon: Video,
-      color: 'from-amber-500 to-orange-500',
-      difficulty: 'Beginner',
-      timeframe: '3-5 Weeks',
-      description: 'Master storytelling, CapCut editing, motion graphics, and algorithmic retention hooks for YouTube Shorts, Reels, and TikTok.',
-      tools: ['Premiere Pro', 'CapCut', 'After Effects', 'Descript'],
-      ventureIdea: 'Content repurposing and viral distribution partner for B2B founders.',
-    },
-    {
-      id: 'growth-marketing',
-      category: 'growth',
-      title: 'Performance Marketing & Lead Funnels',
-      icon: Megaphone,
-      color: 'from-emerald-500 to-teal-500',
-      difficulty: 'All Levels',
-      timeframe: '6-8 Weeks',
-      description: 'Master SEO, Google Search Console, meta advertising funnels, email automation sequences, Gmail reminder to customers for leads ordering, and analytical tracking.',
-      tools: ['Google Ads', 'Meta Ads', 'GA4', 'ConvertKit', 'Gmail API', 'SEMrush'],
-      ventureIdea: 'Performance lead generation boutique charging on pay-per-lead models.',
-    },
-    {
-      id: 'ecommerce',
-      category: 'venture',
-      title: 'E-Commerce & Digital Asset Monetization',
-      icon: ShoppingCart,
-      color: 'from-pink-500 to-rose-500',
-      difficulty: 'Beginner to Intermediate',
-      timeframe: '4-6 Weeks',
-      description: 'Package templates, digital toolkits, specialized newsletters, and niche merchandise into high-margin automated storefronts.',
-      tools: ['Shopify', 'Gumroad', 'Stripe', 'Notion'],
-      ventureIdea: 'Digital template store generating recurring passive royalties.',
-    },
-  ];
+  const filteredTracks = publishedPrograms.filter(
+    (t) => selectedTrack === 'all' || t.category === selectedTrack
+  );
 
-  const filteredTracks = tracks.filter((t) => selectedTrack === 'all' || t.category === selectedTrack);
+  const getIconForCategory = (category: string) => {
+    switch (category) {
+      case 'technical':
+        return Code;
+      case 'growth':
+        return Megaphone;
+      case 'venture':
+        return ShoppingCart;
+      default:
+        return Cpu;
+    }
+  };
 
   return (
     <div className="pt-24 pb-14 space-y-12 sm:space-y-14">
@@ -139,17 +70,17 @@ export const DigitalEntrepreneurshipPage: React.FC = () => {
           <div className="pt-2 flex items-center justify-center gap-2 flex-wrap">
             <button
               onClick={() => setSelectedTrack('all')}
-              className={`px-3.5 py-1 rounded-full text-xs font-mono font-semibold transition-all ${
+              className={`px-3.5 py-1 rounded-full text-xs font-mono font-semibold transition-all cursor-pointer ${
                 selectedTrack === 'all'
                   ? 'bg-purple-600 text-white shadow-lg'
                   : 'bg-white/5 text-slate-400 hover:text-white border border-white/5'
               }`}
             >
-              All Skills ({tracks.length})
+              All Skills ({publishedPrograms.length})
             </button>
             <button
               onClick={() => setSelectedTrack('technical')}
-              className={`px-3.5 py-1 rounded-full text-xs font-mono font-semibold transition-all ${
+              className={`px-3.5 py-1 rounded-full text-xs font-mono font-semibold transition-all cursor-pointer ${
                 selectedTrack === 'technical'
                   ? 'bg-purple-600 text-white shadow-lg'
                   : 'bg-white/5 text-slate-400 hover:text-white border border-white/5'
@@ -159,7 +90,7 @@ export const DigitalEntrepreneurshipPage: React.FC = () => {
             </button>
             <button
               onClick={() => setSelectedTrack('growth')}
-              className={`px-3.5 py-1 rounded-full text-xs font-mono font-semibold transition-all ${
+              className={`px-3.5 py-1 rounded-full text-xs font-mono font-semibold transition-all cursor-pointer ${
                 selectedTrack === 'growth'
                   ? 'bg-purple-600 text-white shadow-lg'
                   : 'bg-white/5 text-slate-400 hover:text-white border border-white/5'
@@ -169,7 +100,7 @@ export const DigitalEntrepreneurshipPage: React.FC = () => {
             </button>
             <button
               onClick={() => setSelectedTrack('venture')}
-              className={`px-3.5 py-1 rounded-full text-xs font-mono font-semibold transition-all ${
+              className={`px-3.5 py-1 rounded-full text-xs font-mono font-semibold transition-all cursor-pointer ${
                 selectedTrack === 'venture'
                   ? 'bg-purple-600 text-white shadow-lg'
                   : 'bg-white/5 text-slate-400 hover:text-white border border-white/5'
@@ -185,7 +116,9 @@ export const DigitalEntrepreneurshipPage: React.FC = () => {
       <section className="container-custom">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredTracks.map((track) => {
-            const Icon = track.icon;
+            const Icon = getIconForCategory(track.category);
+            const toolsList = track.tools_covered || [];
+
             return (
               <div
                 key={track.id}
@@ -194,12 +127,14 @@ export const DigitalEntrepreneurshipPage: React.FC = () => {
                 <div className="space-y-3.5">
                   <div className="flex items-center justify-between">
                     <div
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-tr ${track.color} text-white shadow-md group-hover:scale-105 transition-transform`}
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-tr ${
+                        track.gradient_color || 'from-purple-600 to-indigo-600'
+                      } text-white shadow-md group-hover:scale-105 transition-transform`}
                     >
                       <Icon className="w-5 h-5" />
                     </div>
                     <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-white/5 text-slate-400 border border-white/5">
-                      {track.timeframe}
+                      {track.duration_weeks ? `${track.duration_weeks} Weeks` : 'Self-Paced'}
                     </span>
                   </div>
 
@@ -208,32 +143,38 @@ export const DigitalEntrepreneurshipPage: React.FC = () => {
                   </h2>
 
                   <p className="text-xs text-slate-300 leading-relaxed">
-                    {track.description}
+                    {track.short_description || track.description || ''}
                   </p>
 
-                  <div className="p-3 rounded-xl bg-black/40 border border-white/5 space-y-1">
-                    <span className="text-[10px] font-mono font-bold text-purple-400 uppercase">
-                      Suggested Venture Model:
-                    </span>
-                    <p className="text-xs text-slate-300 leading-snug">
-                      {track.ventureIdea}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-1 pt-1">
-                    {track.tools.map((tool, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-slate-400 border border-white/5"
-                      >
-                        {tool}
+                  {track.venture_idea && (
+                    <div className="p-3 rounded-xl bg-black/40 border border-white/5 space-y-1">
+                      <span className="text-[10px] font-mono font-bold text-purple-400 uppercase">
+                        Suggested Venture Model:
                       </span>
-                    ))}
-                  </div>
+                      <p className="text-xs text-slate-300 leading-snug">
+                        {track.venture_idea}
+                      </p>
+                    </div>
+                  )}
+
+                  {toolsList.length > 0 && (
+                    <div className="flex flex-wrap gap-1 pt-1">
+                      {toolsList.map((tool, idx) => (
+                        <span
+                          key={idx}
+                          className="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 text-slate-400 border border-white/5"
+                        >
+                          {tool}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="pt-3 border-t border-white/10 flex items-center justify-between">
-                  <span className="text-[11px] text-slate-500 font-mono">{track.difficulty}</span>
+                  <span className="text-[11px] text-slate-500 font-mono capitalize">
+                    {track.difficulty_level || 'All Levels'}
+                  </span>
                   <Link
                     to="/resources"
                     className="text-xs font-bold text-blue-400 hover:text-blue-300 inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform"
