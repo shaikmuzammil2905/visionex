@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS public.blog_posts (
     category TEXT,
     category_name TEXT,
     tags TEXT[] DEFAULT '{}',
-    author_name TEXT NOT NULL DEFAULT 'Rakhi Guptha ("Rakesh Voruganti")',
+    author_name TEXT NOT NULL DEFAULT 'Rakhi Guptha',
     author_role TEXT DEFAULT 'Founder, THE VISIONEX',
     read_time TEXT DEFAULT '5 min read',
     is_featured BOOLEAN NOT NULL DEFAULT false,
@@ -334,7 +334,6 @@ BEGIN
     RETURN jsonb_build_object('success', false, 'error', 'Invalid Master Bootstrap Secret Code');
   END IF;
 
-  -- Upsert into profiles as super_admin
   INSERT INTO public.profiles (id, email, full_name, role, is_active)
   VALUES (
     COALESCE(auth.uid(), uuid_generate_v4()),
@@ -351,13 +350,13 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 -- =============================================================================
--- 18. INITIAL CMS CONTENT SEEDS
+-- 18. INITIAL CMS CONTENT SEEDS (Using safe Postgres Dollar Quoting $$)
 -- =============================================================================
 
 INSERT INTO public.website_content (id, section_key, content) VALUES
-('wc_hero', 'hero_section', '{
+('wc_hero', 'hero_section', $${
   "badge_text": "THE FUTURE IS CREATED",
-  "title_line1": "DON''T JUST FIND YOUR FUTURE.",
+  "title_line1": "DON'T JUST FIND YOUR FUTURE.",
   "title_gradient_line2": "BUILD IT.",
   "subtitle": "Learn. Build. Earn. Live. Empower.",
   "primary_cta_text": "Explore Our Mission",
@@ -368,8 +367,8 @@ INSERT INTO public.website_content (id, section_key, content) VALUES
   "orbital_node_right_top": "Independent Digital Income",
   "orbital_node_left_bottom": "Community Empowerment",
   "orbital_node_right_bottom": "The 1 → 10 Opportunity Mission"
-}'::jsonb),
-('wc_mission', 'mission_multiplier', '{
+}$$::jsonb),
+('wc_mission', 'mission_multiplier', $${
   "subtitle": "THE MULTIPLIER EFFECT",
   "heading_line1": "The 1 → 10 Opportunity Mission",
   "heading_gradient_line2": "Creating Doors for Others",
@@ -379,8 +378,8 @@ INSERT INTO public.website_content (id, section_key, content) VALUES
   "stat_left_label": "Opportunity Multiplier",
   "stat_right_number": "100%",
   "stat_right_label": "Proof of Work"
-}'::jsonb),
-('wc_pillars', 'why_pillars', '{
+}$$::jsonb),
+('wc_pillars', 'why_pillars', $${
   "badge_text": "5 CORE PILLARS",
   "heading": "The 5 Reasons Why Visionex Exists",
   "pillars": [
@@ -390,19 +389,19 @@ INSERT INTO public.website_content (id, section_key, content) VALUES
     {"id": "purpose", "title": "Purpose & Meaningful Work", "description": "Building assets that solve real problems with uncompromising integrity."},
     {"id": "opportunity", "title": "1 → 10 Opportunity Multiplication", "description": "Employing and empowering 10 other students once you succeed."}
   ]
-}'::jsonb),
-('wc_contact', 'contact_section', '{
-  "heading": "We''d Love to Hear From You",
+}$$::jsonb),
+('wc_contact', 'contact_section', $${
+  "heading": "We'd Love to Hear From You",
   "subtitle": "Have questions about student ventures, partnerships, speaking engagements, or joining the community? Reach out directly.",
   "email": "rakhiguptha26@gmail.com",
   "phone": "9652553433",
   "whatsapp": "7013429578",
   "address": "Hyderabad / Digital Campus, India"
-}'::jsonb),
-('wc_footer', 'footer', '{
-  "tagline": "Don''t just find your future. Build it.",
-  "copyright_text": "© 2026 THE VISIONEX. Founded by Rakhi Guptha (\\"Rakesh Voruganti\\"). All rights reserved."
-}'::jsonb)
+}$$::jsonb),
+('wc_footer', 'footer', $${
+  "tagline": "Don't just find your future. Build it.",
+  "copyright_text": "© 2026 THE VISIONEX. Founded by Rakhi Guptha (\"Rakesh Voruganti\"). All rights reserved."
+}$$::jsonb)
 ON CONFLICT (section_key) DO UPDATE SET content = EXCLUDED.content;
 
 -- Initial Seed Blog Categories
@@ -442,8 +441,23 @@ ON CONFLICT (platform) DO NOTHING;
 -- Initial Seed Global Site Settings
 INSERT INTO public.site_settings (id, hero_content, contact_info, founder_info) VALUES
 ('global_settings',
- '{"tag": "THE FUTURE IS CREATED", "headline": "DON''T JUST FIND YOUR FUTURE. BUILD IT.", "subheadline": "Learn. Build. Earn. Live. Empower.", "supporting_text": "We empower students to explore digital entrepreneurship, build real skills, create income and opportunities, and design a meaningful life."}'::jsonb,
- '{"phone": "9652553433", "whatsapp": "7013429578", "email": "rakhiguptha26@gmail.com", "address": "Hyderabad, Telangana, India"}'::jsonb,
- '{"name": "Rakhi Guptha", "alias": "Rakesh Voruganti", "title": "Founder & Visionary", "mission_quote": "One person can create more than an income. They can create opportunities."}'::jsonb
+ $${
+  "tag": "THE FUTURE IS CREATED",
+  "headline": "DON'T JUST FIND YOUR FUTURE. BUILD IT.",
+  "subheadline": "Learn. Build. Earn. Live. Empower.",
+  "supporting_text": "We empower students to explore digital entrepreneurship, build real skills, create income and opportunities, and design a meaningful life."
+ }$$::jsonb,
+ $${
+  "phone": "9652553433",
+  "whatsapp": "7013429578",
+  "email": "rakhiguptha26@gmail.com",
+  "address": "Hyderabad, Telangana, India"
+ }$$::jsonb,
+ $${
+  "name": "Rakhi Guptha",
+  "alias": "Rakesh Voruganti",
+  "title": "Founder & Visionary",
+  "mission_quote": "One person can create more than an income. They can create opportunities."
+ }$$::jsonb
 )
 ON CONFLICT (id) DO NOTHING;
