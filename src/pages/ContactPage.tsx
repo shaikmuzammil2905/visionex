@@ -116,6 +116,19 @@ export const ContactPage: React.FC = () => {
                   </div>
                 </a>
 
+                <a
+                  href="mailto:rakhiguptha26@gmail.com"
+                  className="flex items-start gap-3 p-3 rounded-xl bg-purple-950/30 hover:bg-purple-950/50 border border-purple-500/30 transition-all text-purple-200"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-purple-950 text-purple-400 flex items-center justify-center shrink-0">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-mono text-purple-400 uppercase">Gmail Official / Direct</div>
+                    <div className="font-bold text-white">rakhiguptha26@gmail.com <span className="text-xs font-normal text-purple-300">(@rakhiguptha26)</span></div>
+                  </div>
+                </a>
+
                 <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/5 text-slate-300">
                   <div className="w-8 h-8 rounded-lg bg-purple-950/80 text-purple-400 flex items-center justify-center shrink-0">
                     <MapPin className="w-4 h-4" />

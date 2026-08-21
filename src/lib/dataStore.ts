@@ -196,7 +196,7 @@ export const INITIAL_SITE_SETTINGS: SiteSettings = {
   contact_info: {
     phone: '9652553433',
     whatsapp: '7013429578',
-    email: 'contact@thevisionex.com',
+    email: 'rakhiguptha26@gmail.com (@rakhiguptha26)',
     address: 'Hyderabad, Telangana, India',
   },
   founder_info: {

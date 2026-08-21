@@ -146,10 +146,19 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a
-                  href="mailto:contact@thevisionex.com"
+                  href="mailto:rakhiguptha26@gmail.com"
                   className="flex items-center gap-2 text-slate-300 hover:text-purple-400 transition-colors"
                 >
                   <Mail className="w-4 h-4 text-purple-400 shrink-0" />
+                  <span>rakhiguptha26@gmail.com <span className="text-xs text-purple-400">(@rakhiguptha26)</span></span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:contact@thevisionex.com"
+                  className="flex items-center gap-2 text-slate-400 hover:text-purple-400 transition-colors text-xs"
+                >
+                  <Mail className="w-3.5 h-3.5 text-slate-500 shrink-0" />
                   <span>contact@thevisionex.com</span>
                 </a>
               </li>
@@ -169,6 +178,12 @@ export const Footer: React.FC = () => {
             <ShieldCheck className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
             <span>
               <strong>Educational Disclaimer:</strong> THE VISIONEX is an educational initiative, platform, and community fostering digital entrepreneurship and practical skill creation. Nothing on this website constitutes a guarantee of employment, fixed compensation, or instant financial results. Success requires dedicated study, ethical execution, and consistent skill application.
+            </span>
+          </p>
+          <p className="flex items-start gap-1.5 text-amber-300/90 font-medium pt-1">
+            <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+            <span>
+              <strong>Age Requirement Note:</strong> This opportunity is only for 18+ age.
             </span>
           </p>
         </div>

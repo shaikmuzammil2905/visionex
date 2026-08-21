@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Code, Cpu, Smartphone, Palette, Video, Megaphone, ShoppingCart, ArrowRight, CheckCircle2, ChevronRight, BookOpen } from 'lucide-react';
+import { Sparkles, Code, Cpu, Smartphone, Palette, Video, Megaphone, ShoppingCart, ArrowRight, CheckCircle2, ChevronRight, BookOpen, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PageBackButton } from '../components/layout/PageBackButton';
 import { trackPageView } from '../lib/analytics';
@@ -33,9 +33,21 @@ export const DigitalEntrepreneurshipPage: React.FC = () => {
       color: 'from-purple-500 to-pink-500',
       difficulty: 'All Levels',
       timeframe: '4-6 Weeks',
-      description: 'Harness LLMs, n8n, Make, and Python scripting to automate business operations, lead qualification pipelines, and content synthesis.',
-      tools: ['ChatGPT', 'Claude', 'n8n', 'Make.com', 'Zapier', 'Python'],
-      ventureIdea: 'AI workflow audit and automated CRM setup agency.',
+      description: 'Harness LLMs, n8n, Make, and Python scripting to automate business operations, lead qualification pipelines, customer Gmail reminders, and content synthesis.',
+      tools: ['ChatGPT', 'Claude', 'n8n', 'Make.com', 'Zapier', 'Python', 'Gmail API'],
+      ventureIdea: 'AI workflow audit, automated CRM setup, and automated lead ordering reminder systems.',
+    },
+    {
+      id: 'lead-gmail-automation',
+      category: 'growth',
+      title: 'Lead Ordering & Customer Gmail Reminders',
+      icon: Mail,
+      color: 'from-amber-500 to-rose-500',
+      difficulty: 'Beginner to Intermediate',
+      timeframe: '2-4 Weeks',
+      description: 'Build automated Gmail reminder to customers for leads ordering, instant order confirmations, and automated client follow-up sequences.',
+      tools: ['Gmail API', 'Make.com', 'Zapier', 'Google Sheets', 'Webhooks'],
+      ventureIdea: 'Automated lead ordering and customer notification agency.',
     },
     {
       id: 'mobile',
@@ -81,8 +93,8 @@ export const DigitalEntrepreneurshipPage: React.FC = () => {
       color: 'from-emerald-500 to-teal-500',
       difficulty: 'All Levels',
       timeframe: '6-8 Weeks',
-      description: 'Master SEO, Google Search Console, meta advertising funnels, email automation sequences, and analytical tracking.',
-      tools: ['Google Ads', 'Meta Ads', 'GA4', 'ConvertKit', 'SEMrush'],
+      description: 'Master SEO, Google Search Console, meta advertising funnels, email automation sequences, Gmail reminder to customers for leads ordering, and analytical tracking.',
+      tools: ['Google Ads', 'Meta Ads', 'GA4', 'ConvertKit', 'Gmail API', 'SEMrush'],
       ventureIdea: 'Performance lead generation boutique charging on pay-per-lead models.',
     },
     {

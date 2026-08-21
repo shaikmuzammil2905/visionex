@@ -76,6 +76,11 @@ export const RegisterPage: React.FC = () => {
             <p className="text-xs text-slate-400">
               Access digital skills roadmaps, peer masterminds, and venture blueprints.
             </p>
+            <div className="pt-1">
+              <span className="inline-block px-2.5 py-0.5 rounded-md bg-amber-950/50 border border-amber-500/30 text-[10px] font-mono text-amber-300 font-semibold">
+                ⚠️ Note: This opportunity is only for 18+ age
+              </span>
+            </div>
           </div>
 
           {error && (
