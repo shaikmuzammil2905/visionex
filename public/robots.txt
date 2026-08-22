@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /dashboard
 
-Sitemap: https://thevisionex.com/sitemap.xml
+Sitemap: https://thevisionex.in/sitemap.xml
